@@ -1,0 +1,11 @@
+on:
+  push:
+
+jobs:
+  deploy:
+    name: Test1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Make an Echo
+        run: |
+          echo "adsf"
