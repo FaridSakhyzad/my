@@ -8,6 +8,6 @@ export const getUser = async () => {
   }).then((response) => {
     return response
   }).catch((error) => {
-    console.error('backend error. details:', error);
+    console.error('Backend error. details:', error);
   })
 }
