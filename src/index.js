@@ -22,7 +22,7 @@ const getSessionInfo = async function() {
   return result;
 }
 
-const sessionInfo = getSessionInfo();
+// const sessionInfo = getSessionInfo();
 
 root.render(
   <React.StrictMode>
