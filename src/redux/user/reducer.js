@@ -1,4 +1,4 @@
-import { GET_USER } from './constants'
+import {CREATE_USER, GET_USER, LOGIN_USER} from './constants'
 
 const initialState = {
   user: {
@@ -11,11 +11,17 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER : {
+    case GET_USER: {
       return {
         ...state,
         user: action.payload,
       }
+    }
+    case CREATE_USER: {
+      return state
+    }
+    case LOGIN_USER: {
+      return state
     }
     default:
       return state

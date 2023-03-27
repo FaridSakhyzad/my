@@ -1,0 +1,26 @@
+.signUpForm {
+  display: block;
+  border: 1px solid #61dafb;
+  padding: 5px;
+  margin: 10px;
+}
+
+.signUpForm-row {
+  & + & {
+    margin-top: 8px;
+  }
+}
+
+.signUpForm-input {
+  border: 1px solid black;
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.signUpForm-button {
+  border: 1px solid black;
+  padding: 8px 16px;
+  font-size: 16px;
+  border-radius: 65536px;
+}

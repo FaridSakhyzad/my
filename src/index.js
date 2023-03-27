@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const sessionId = Cookies.get('session-id');
 
 if (!sessionId) {
-  Cookies.set('session-id', Math.random().toString().slice(2, 11));
+  Cookies.set('session-id', Math.random().toString().slice(2, 11), { domain: 'localhost' });
 }
 
 const getSessionInfo = async function() {
