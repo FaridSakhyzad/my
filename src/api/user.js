@@ -16,12 +16,17 @@ export const loginUser = async (data) => {
   });
 }
 
+export const getUserProfile = async () => {
+  return Api.get('/userProfile').then((response) => {
+    return response
+  }).catch((error) => {
+    console.error('Backend error. details:', error);
+  })
+}
+
+
 export const getUser = async () => {
-  return Api.get('/user', {
-    params: {
-      id: '1345',
-    }
-  }).then((response) => {
+  return Api.get('/user', { params: { id: '1345' } }).then((response) => {
     return response
   }).catch((error) => {
     console.error('Backend error. details:', error);

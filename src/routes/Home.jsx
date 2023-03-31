@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import Header from '../components/Header';
-import {createUser, getUser, loginUser} from '../redux/user/actions';
+import {createUser, getUserProfile, loginUser} from '../redux/user/actions';
 import './home.scss';
 
 const Home = (props) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    //dispatch(getUser());
+    dispatch(getUserProfile());
   }, []);
 
   const handleSignupFormSubmit = (e) => {
@@ -17,7 +17,7 @@ const Home = (props) => {
     const formData = new FormData(e.target);
 
     dispatch(createUser({
-      login: formData.get('login'),
+      email: formData.get('email'),
       password: formData.get('password'),
     }))
   }
@@ -28,7 +28,7 @@ const Home = (props) => {
     const formData = new FormData(e.target);
 
     dispatch(loginUser({
-      login: formData.get('login'),
+      email: formData.get('email'),
       password: formData.get('password'),
       remember: formData.get('remember') !== null,
     }));
@@ -40,7 +40,7 @@ const Home = (props) => {
       <h1>Home</h1>
       <form className="signUpForm" onSubmit={handleSignupFormSubmit}>
         <div className="signUpForm-row">
-          <input type="email" placeholder="email" className="signUpForm-input" name="login" value="farid.sakhyzad@gmail.com" />
+          <input type="email" placeholder="email" className="signUpForm-input" name="email" value="farid.sakhyzad@gmail.com" />
         </div>
         <div className="signUpForm-row">
           <input type="password" placeholder="password" className="signUpForm-input" name="password" value="12345" />
@@ -52,7 +52,7 @@ const Home = (props) => {
 
       <form className="signUpForm" onSubmit={handleLoginFormSubmit}>
         <div className="signUpForm-row">
-          <input type="email" required placeholder="email" className="signUpForm-input" name="login" />
+          <input type="email" required placeholder="email" className="signUpForm-input" name="email" />
         </div>
         <div className="signUpForm-row">
           <input type="password" required placeholder="password" className="signUpForm-input" name="password" />
