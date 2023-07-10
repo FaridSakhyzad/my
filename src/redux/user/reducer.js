@@ -1,64 +1,91 @@
 import {
-  GET_USER,
-  CREATE_USER,
-  GET_USER_PROFILE,
   LOGIN_USER,
-  GET_USER_PROFILE_START,
-  GET_USER_PROFILE_SUCCESS,
-  GET_USER_PROFILE_FAIL,
+  LOGIN_USER_START,
+  LOGIN_USER_FAIL,
+  LOGIN_USER_SUCCESS,
+
+  GET_USER,
+  GET_USER_START,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+  GET_USER_STOP,
 } from './constants'
 
 const initialState = {
   id: null,
   email: null,
-  // firstName: null,
-  // secondName: null,
   loading: false,
-  error: false,
+  error: null,
+  isLoggedIn: false,
 }
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_USER: {
-      return {
-        ...state,
-        user: action.payload,
-      }
-    }
-    case CREATE_USER: {
-      return state
-    }
     case LOGIN_USER: {
       return state
     }
-    case GET_USER_PROFILE: {
+
+    case LOGIN_USER_START: {
+      return {
+        ...state,
+        loading: true
+      }
+    }
+
+    case LOGIN_USER_SUCCESS: {
+      return {
+        ...state,
+        ...action.payload,
+        isLoggedIn: true,
+        loading: false
+      }
+    }
+
+    case LOGIN_USER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        isLoggedIn: false,
+        error: action.payload,
+      }
+    }
+
+    case GET_USER: {
       return state
     }
-    case GET_USER_PROFILE_START: {
-      return {
-        loading: true,
-        error: false,
-        ...state
-      }
-    }
-    case GET_USER_PROFILE_SUCCESS: {
-      console.log('GET_USER_PROFILE_SUCCESS', action);
 
+    case GET_USER_START: {
       return {
-        ...action.payload.data,
-        loading: false,
-        ...state
+        ...state,
+        loading: true
       }
     }
-    case GET_USER_PROFILE_FAIL: {
-      console.log('GET_USER_PROFILE_FAIL', action);
 
+    case GET_USER_SUCCESS: {
       return {
-        loading: false,
-        error: true,
-        ...state
+        ...state,
+        ...action.payload,
+        isLoggedIn: true,
+        loading: false
       }
     }
+
+    case GET_USER_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        isLoggedIn: false,
+        error: action.payload,
+      }
+    }
+
+    case GET_USER_STOP: {
+      return {
+        ...state,
+        loading: false
+      }
+    }
+
     default:
       return state
   }

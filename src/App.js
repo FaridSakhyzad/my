@@ -5,6 +5,7 @@ import ThemeContext from './context';
 
 import store from './redux/store';
 
+import Layout from  './Layout'
 import Home from './routes/Home';
 import Profile from './routes/Profile';
 import Authorization from './routes/Authorization';
@@ -21,12 +22,13 @@ function App() {
     <Provider store={store}>
       <ThemeContext.Provider value={theme}>
         <div className="App">
-          <input type="button" value="theme switcher" onClick={onButtonClick} />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="auth" element={<Authorization />} />
-            <Route path="profile" element={<Profile />} />
-          </Routes>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="auth" element={<Authorization />} />
+              <Route path="profile" element={<Profile />} />
+            </Routes>
+          </Layout>
         </div>
       </ThemeContext.Provider>
     </Provider>

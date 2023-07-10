@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
-import {createUser, getUserProfile, loginUser} from '../redux/user/actions';
+import {createUser, getUser, loginUser} from '../redux/user/actions';
 import './home.scss';
 
-const Home = (props) => {
+const Home = () => {
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getUserProfile());
-  }, []);
+  useEffect(() => {}, []);
+
+  const user = useSelector(({ user }) => user);
+
+  const { loading, isLoggedIn, email, error } = user;
 
   const handleSignupFormSubmit = (e) => {
     e.preventDefault();
@@ -34,6 +36,10 @@ const Home = (props) => {
     }));
   }
 
+  const handleLogoutClick = () => {
+    console.log('adf');
+  }
+
   return (
     <>
       <Header />
@@ -50,20 +56,32 @@ const Home = (props) => {
         </div>
       </form>
 
-      <form className="signUpForm" onSubmit={handleLoginFormSubmit}>
-        <div className="signUpForm-row">
-          <input type="email" required placeholder="email" className="signUpForm-input" name="email" />
-        </div>
-        <div className="signUpForm-row">
-          <input type="password" required placeholder="password" className="signUpForm-input" name="password" />
-        </div>
-        <div className="signUpForm-row">
-          <label><input type="checkbox" name="remember" />remember me</label>
-        </div>
-        <div className="signUpForm-row">
-          <button type="submit" className="signUpForm-button">Login</button>
-        </div>
-      </form>
+      {!isLoggedIn ? (
+        <form className={`signUpForm ${loading ? 'signUpForm_loading' : ''}` } onSubmit={handleLoginFormSubmit}>
+          <div className="signUpForm-row">
+            <input type="email" required placeholder="email" className="signUpForm-input" name="email" />
+          </div>
+          <div className="signUpForm-row">
+            <input type="password" required placeholder="password" className="signUpForm-input" name="password" />
+          </div>
+          <div className="signUpForm-row">
+            <label><input type="checkbox" name="remember" />remember me</label>
+          </div>
+          <div className="signUpForm-row">
+            <button type="submit" className="signUpForm-button">Login</button>
+          </div>
+          {error && (
+              <div>error: {error}</div>
+          )}
+        </form>
+      ) : (
+          <div>
+            <div>User email: {email}</div>
+            <div>
+              <button type="button" className="signUpForm-button" onClick={handleLogoutClick}>Logout</button>
+            </div>
+          </div>
+      )}
     </>
   )
 }

@@ -1,11 +1,16 @@
 import {
-  GET_USER,
   CREATE_USER,
+
   LOGIN_USER,
-  GET_USER_PROFILE,
-  GET_USER_PROFILE_START,
-  GET_USER_PROFILE_SUCCESS,
-  GET_USER_PROFILE_FAIL,
+  LOGIN_USER_START,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL,
+
+  GET_USER,
+  GET_USER_START,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+  GET_USER_STOP,
 } from './constants'
 
 export const createUser = (data) => ({
@@ -18,27 +23,39 @@ export const loginUser = (data) => ({
   payload: data
 })
 
-export const getUserProfile = (data) => ({
-  type: GET_USER_PROFILE,
+export const loginStart = () => ({
+  type: LOGIN_USER_START,
+})
+
+export const loginSuccess = (data) => ({
+  type: LOGIN_USER_SUCCESS,
   payload: data
 })
 
-export const getUserProfileStart = (data) => ({
-  type: GET_USER_PROFILE_START,
-  payload: data
-})
-
-export const getUserProfileSuccess = (data) => ({
-  type: GET_USER_PROFILE_SUCCESS,
-  payload: data
-})
-
-export const getUserProfileFail = (data) => ({
-  type: GET_USER_PROFILE_FAIL,
+export const loginFail = (data) => ({
+  type: LOGIN_USER_FAIL,
   payload: data
 })
 
 export const getUser = (data) => ({
   type: GET_USER,
   payload: data
+})
+
+export const getUserStart = () => ({
+  type: GET_USER_START,
+})
+
+export const getUserSuccess = (data) => ({
+  type: GET_USER_SUCCESS,
+  payload: data
+})
+
+export const getUserFail = (data) => ({
+  type: GET_USER_FAIL,
+  payload: data
+})
+
+export const getUserStop = () => ({
+  type: GET_USER_STOP
 })
