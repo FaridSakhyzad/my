@@ -9,6 +9,7 @@ import {
   GET_USER_SUCCESS,
   GET_USER_FAIL,
   GET_USER_STOP,
+  LOGIN_USER_ABORT, LOGOUT_USER,
 } from './constants'
 
 const initialState = {
@@ -32,6 +33,12 @@ const userReducer = (state = initialState, action) => {
       }
     }
 
+    case LOGIN_USER_ABORT: {
+      return {
+        ...initialState,
+      }
+    }
+
     case LOGIN_USER_SUCCESS: {
       return {
         ...state,
@@ -47,6 +54,12 @@ const userReducer = (state = initialState, action) => {
         loading: false,
         isLoggedIn: false,
         error: action.payload,
+      }
+    }
+
+    case LOGOUT_USER: {
+      return {
+        ...initialState,
       }
     }
 

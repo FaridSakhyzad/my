@@ -16,6 +16,14 @@ export const loginUser = async (data) => {
   });
 }
 
+export const logoutUser = async () => {
+  return Api.post('/logoutUser').then((response) => {
+    return response
+  }).catch((error) => {
+    console.error('Backend error. details:', error);
+  });
+}
+
 export const getUser = async () => {
   return Api.get('/user').then((response) => {
     return response

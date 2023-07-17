@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../components/Header';
-import {createUser, getUser, loginUser} from '../redux/user/actions';
+import {createUser, logoutUser, loginUser} from '../redux/user/actions';
 import './home.scss';
 
 const Home = () => {
   const dispatch = useDispatch()
-
-  useEffect(() => {}, []);
 
   const user = useSelector(({ user }) => user);
 
@@ -37,50 +35,61 @@ const Home = () => {
   }
 
   const handleLogoutClick = () => {
-    console.log('adf');
+    dispatch(logoutUser());
   }
 
   return (
     <>
       <Header />
       <h1>Home</h1>
-      <form className="signUpForm" onSubmit={handleSignupFormSubmit}>
-        <div className="signUpForm-row">
-          <input type="email" placeholder="email" className="signUpForm-input" name="email" value="farid.sakhyzad@gmail.com" />
-        </div>
-        <div className="signUpForm-row">
-          <input type="password" placeholder="password" className="signUpForm-input" name="password" value="12345" />
-        </div>
-        <div className="signUpForm-row">
-          <button type="submit" className="signUpForm-button">Sign Up</button>
-        </div>
-      </form>
 
       {!isLoggedIn ? (
-        <form className={`signUpForm ${loading ? 'signUpForm_loading' : ''}` } onSubmit={handleLoginFormSubmit}>
-          <div className="signUpForm-row">
-            <input type="email" required placeholder="email" className="signUpForm-input" name="email" />
-          </div>
-          <div className="signUpForm-row">
-            <input type="password" required placeholder="password" className="signUpForm-input" name="password" />
-          </div>
-          <div className="signUpForm-row">
-            <label><input type="checkbox" name="remember" />remember me</label>
-          </div>
-          <div className="signUpForm-row">
-            <button type="submit" className="signUpForm-button">Login</button>
-          </div>
-          {error && (
-              <div>error: {error}</div>
-          )}
-        </form>
-      ) : (
-          <div>
-            <div>User email: {email}</div>
-            <div>
-              <button type="button" className="signUpForm-button" onClick={handleLogoutClick}>Logout</button>
+        <>
+          <form
+            className={`signUpForm ${loading ? 'signUpForm_loading' : ''}` }
+            onSubmit={handleSignupFormSubmit}
+          >
+            <div className="signUpForm-row">
+              <input type="email" placeholder="email" className="signUpForm-input" name="email" value="farid.sakhyzad@gmail.com" />
             </div>
+            <div className="signUpForm-row">
+              <input type="password" placeholder="password" className="signUpForm-input" name="password" value="12345" />
+            </div>
+            <div className="signUpForm-row">
+              <button type="submit" className="signUpForm-button">Sign Up</button>
+            </div>
+          </form>
+
+          <form
+            className={`signUpForm ${loading ? 'signUpForm_loading' : ''}` }
+            onSubmit={handleLoginFormSubmit}
+          >
+            <div className="signUpForm-row">
+              <input type="email" required placeholder="email" className="signUpForm-input" name="email" />
+            </div>
+            <div className="signUpForm-row">
+              <input type="password" required placeholder="password" className="signUpForm-input" name="password" />
+            </div>
+            <div className="signUpForm-row">
+              <label><input type="checkbox" name="remember" />remember me</label>
+            </div>
+            <div className="signUpForm-row">
+              <button type="submit" className="signUpForm-button">Login</button>
+            </div>
+            {error && (
+                <div>error: {error}</div>
+            )}
+          </form>
+        </>
+      ) : (
+        <div>
+          <div>
+            <p>User email: {email}</p>
           </div>
+          <div>
+            <button type="button" className="signUpForm-button" onClick={handleLogoutClick}>Logout</button>
+          </div>
+        </div>
       )}
     </>
   )

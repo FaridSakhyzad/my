@@ -4,7 +4,9 @@ import {
   CREATE_USER,
   LOGIN_USER,
   GET_USER,
+  LOGOUT_USER,
 } from './constants';
+
 import {
   loginStart,
   loginFail,
@@ -13,19 +15,20 @@ import {
   getUserFail,
   getUserSuccess,
   getUserStop,
+  loginAbort,
 } from './actions';
 
-import { getUser, createUser, loginUser } from '../../api/user';
+import { getUser, createUser, loginUser, logoutUser } from '../../api/user';
 
 export function* getUserSaga() {
   yield put(getUserStart());
 
-  const { data, data: { user } } = yield call(getUser);
+  const { data: { user, errors } } = yield call(getUser);
 
-  if (data.errors && data.errors.length > 0) {
-    yield put(getUserFail(data.errors[0].message));
+  if (errors && errors.length > 0) {
+    yield put(getUserFail(errors[0].message));
 
-    return data.errors;
+    return errors;
   }
 
   if (user) {
@@ -51,14 +54,24 @@ export function* loginUserSaga({ payload }) {
     return data.errors;
   }
 
+  if (!data.user) {
+    yield put(loginAbort());
+    return;
+  }
+
   yield put(loginSuccess(data.user));
 
   const { authToken } = data.user;
   Cookie.set('token', authToken, { domain: 'localhost' });
 }
 
+export function* logoutUserSaga() {
+  const { data } = yield call(logoutUser);
+}
+
 export function* watchUserSagas() {
   yield takeEvery(CREATE_USER, createUserSaga)
   yield takeEvery(LOGIN_USER, loginUserSaga)
+  yield takeEvery(LOGOUT_USER, logoutUserSaga)
   yield takeEvery(GET_USER, getUserSaga)
 }
