@@ -18,6 +18,8 @@ function App() {
     setTheme(theme === 'light' ? 'dark' : 'light');
   }
 
+  console.log('ASDF');
+
   return (
     <Provider store={store}>
       <ThemeContext.Provider value={theme}>
